@@ -1,7 +1,13 @@
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
+import { getNews } from '@/apis/news'
+import { getWeatherFukuoka, getWeatherKurume } from '@/apis/weathers'
 
-export default function Home() {
+export default async function Home() {
+  const [weatherKurume, weatherFukuoka] = await Promise.all([getWeatherKurume(), getWeatherFukuoka()])
+  const data = await getNews()
+  console.log(weatherKurume.forecasts.length)
+  console.log(data.articles.length)
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
